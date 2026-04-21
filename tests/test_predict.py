@@ -1,18 +1,21 @@
 from fastapi.testclient import TestClient
+
 from app.main import app
 
 client = TestClient(app)
 
-def test_predict_returns_valid_response():
+
+def test_predict_returns_valid_response() -> None:
     payload = {
         "age": 45,
         "bmi": 31.2,
         "smoker": True,
         "region": "southwest",
-        "children": 2
+        "children": 2,
     }
 
     response = client.post("/predict", json=payload)
+
     assert response.status_code == 200
 
     data = response.json()
@@ -24,3 +27,17 @@ def test_predict_returns_valid_response():
     assert isinstance(data["risk_score"], float)
     assert data["risk_level"] in ["low", "medium", "high"]
     assert isinstance(data["explanation"], str)
+
+
+def test_predict_rejects_invalid_age() -> None:
+    payload = {
+        "age": -1,
+        "bmi": 31.2,
+        "smoker": True,
+        "region": "southwest",
+        "children": 2,
+    }
+
+    response = client.post("/predict", json=payload)
+
+    assert response.status_code == 422
