@@ -2,11 +2,44 @@
 
 A simple MVP backend for insurance risk prediction built with FastAPI and scikit-learn.
 
-## Features
+## Project Overview
 
-- `/health` health check
-- `/predict` risk prediction endpoint
-- `/model/info` model metadata endpoint
+Insurance AI API is a backend MVP that predicts insurance risk from user profile data using a trained scikit-learn model exposed through a FastAPI service.
+
+## Architecture
+![Architecture](docs/architecture.png)
+
+### Tech Stack
+
+- FastAPI
+- scikit-learn
+- pandas
+- Docker
+- pytest
+
+### Endpoints
+
+- `GET /health` — service health check
+- `POST /predict` — generate risk prediction
+- `GET /model/info` — view loaded model metadata
+
+### Example Use Case
+
+A client submits insurance-related attributes such as age, BMI, smoking status, region, and number of children.  
+The API returns:
+
+- risk score
+- risk level
+- explanation
+
+### What this project demonstrates
+
+- building and serving an ML model through an API
+- separating route logic from service logic
+- input validation with Pydantic
+- model lifecycle basics
+- containerized deployment with Docker
+- MVP deployment to production
 
 ## Run locally
 
